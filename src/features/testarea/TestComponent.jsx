@@ -12,7 +12,8 @@ import { openModal } from '../modals/modalActions'
 
 const mapState = state => ({
   data: state.test.data,
-  loading: state.test.loading
+  loading: state.test.loading,
+  rocksdata: []
 });
 
 const actions = {
