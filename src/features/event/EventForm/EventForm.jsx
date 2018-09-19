@@ -19,7 +19,7 @@ import SelectInput from '../../../app/common/form/SelectInput';
 import DateInput from '../../../app/common/form/DateInput';
 import PlaceInput from '../../../app/common/form/PlaceInput';
 
-const mapState = (state,) => {
+const mapState = (state, ownProps) => {
   let event = {};
 
   if (state.firestore.ordered.events && state.firestore.ordered.events[0]) {
@@ -34,7 +34,7 @@ const mapState = (state,) => {
 
 const actions = {
   createEvent,
-  updateEvent, 
+  updateEvent,
   cancelToggle
 };
 
