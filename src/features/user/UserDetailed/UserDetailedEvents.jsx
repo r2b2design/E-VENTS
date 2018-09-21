@@ -10,7 +10,7 @@ const panes = [
   {menuItem: 'Hosting', pane: {key: 'hosted'}},
 ]
 
-const UserDetailedEvents = ({ events, eventsLoading, changeTab }) => {
+const UserDeteiledEvents = ({ events, eventsLoading, changeTab }) => {
   return (
     <Grid.Column width={12}>
       <Segment attached loading={eventsLoading}>
@@ -26,8 +26,8 @@ const UserDetailedEvents = ({ events, eventsLoading, changeTab }) => {
                 <Card.Content>
                   <Card.Header textAlign="center">{event.title}</Card.Header>
                   <Card.Meta textAlign="center">
-                    <div>{format(event.date && event.date.toDate(), 'DD MMM YYYY')}</div>
-                    <div>{format(event.date && event.date.toDate(), 'h:mm A')}</div>
+                    <div>{format(event.date.toDate(), 'DD MMM YYYY')}</div>
+                    <div>{format(event.date.toDate(), 'h:mm A')}</div>
                   </Card.Meta>
                 </Card.Content>
               </Card>
@@ -38,4 +38,4 @@ const UserDetailedEvents = ({ events, eventsLoading, changeTab }) => {
   );
 };
 
-export default UserDetailedEvents;
+export default UserDeteiledEvents;
