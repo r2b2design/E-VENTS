@@ -118,7 +118,7 @@ export const getEventsForDashboard = lastEvent => async (
   }
 };
 
-export const addEventComment = (eventId, values) => async (
+export const addEventComment = (eventId, values, parentId) => async (
   dispatch,
   getState,
   { getFirebase }
@@ -131,7 +131,8 @@ export const addEventComment = (eventId, values) => async (
     photoURL: profile.photoURL || 'assets/user.png',
     uid: user.uid,
     text: values.comment,
-    date: Date.now()
+    date: Date.now(),
+    parentId: parentId
   };
   try {
     await firebase.push(`event_chat/${eventId}`, newComment);
