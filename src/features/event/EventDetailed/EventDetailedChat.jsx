@@ -1,7 +1,10 @@
-import React from 'react';
-import { Segment, Header, Comment, Form, Button } from 'semantic-ui-react';
+import React from "react";
+import { Link } from 'react-router-dom'
+import { Segment, Header, Comment } from "semantic-ui-react";
+import distanceInWords from 'date-fns/distance_in_words'
+import EventDetailedChatForm  from './eventdetailedChatForm';
 
-const EventDetailedChat = () => {
+const EventDetailedChat = ({addEventComment, eventId, eventChat}) => {
   return (
     <div>
       <Segment
@@ -9,84 +12,32 @@ const EventDetailedChat = () => {
         attached="top"
         inverted
         color="teal"
-        style={{ border: 'none' }}
+        style={{ border: "none" }}
       >
         <Header>Chat about this event</Header>
       </Segment>
 
       <Segment attached>
         <Comment.Group>
-          <Comment>
-            <Comment.Avatar src="/assets/user.png" />
+          {eventChat &&eventChat.map((comment) => (
+            <Comment key={comment.id}>
+            <Comment.Avatar src={comment.photoURL || "/assets/user.png"} />
             <Comment.Content>
-              <Comment.Author as="a">Matt</Comment.Author>
+              <Comment.Author as={Link} to={`/profile/${comment.uid}`}>{comment.displayName}</Comment.Author>
               <Comment.Metadata>
-                <div>Today at 5:42PM</div>
+                <div>{distanceInWords(comment.date,Date.now())} ago</div>
               </Comment.Metadata>
-              <Comment.Text>How artistic!</Comment.Text>
+              <Comment.Text>{comment.text}</Comment.Text>
               <Comment.Actions>
                 <Comment.Action>Reply</Comment.Action>
               </Comment.Actions>
             </Comment.Content>
           </Comment>
-
-          <Comment>
-            <Comment.Avatar src="/assets/user.png" />
-            <Comment.Content>
-              <Comment.Author as="a">Elliot Fu</Comment.Author>
-              <Comment.Metadata>
-                <div>Yesterday at 12:30AM</div>
-              </Comment.Metadata>
-              <Comment.Text>
-                <p>
-                  This has been very useful for my research. Thanks as well!
-                </p>
-              </Comment.Text>
-              <Comment.Actions>
-                <Comment.Action>Reply</Comment.Action>
-              </Comment.Actions>
-            </Comment.Content>
-            <Comment.Group>
-              <Comment>
-                <Comment.Avatar src="/assets/user.png" />
-                <Comment.Content>
-                  <Comment.Author as="a">Jenny Hess</Comment.Author>
-                  <Comment.Metadata>
-                    <div>Just now</div>
-                  </Comment.Metadata>
-                  <Comment.Text>Elliot you are always so right :)</Comment.Text>
-                  <Comment.Actions>
-                    <Comment.Action>Reply</Comment.Action>
-                  </Comment.Actions>
-                </Comment.Content>
-              </Comment>
-            </Comment.Group>
-          </Comment>
-
-          <Comment>
-            <Comment.Avatar src="/assets/user.png" />
-            <Comment.Content>
-              <Comment.Author as="a">Joe Henderson</Comment.Author>
-              <Comment.Metadata>
-                <div>5 days ago</div>
-              </Comment.Metadata>
-              <Comment.Text>Dude, this is awesome. Thanks so much</Comment.Text>
-              <Comment.Actions>
-                <Comment.Action>Reply</Comment.Action>
-              </Comment.Actions>
-            </Comment.Content>
-          </Comment>
-
-          <Form reply>
-            <Form.TextArea />
-            <Button
-              content="Add Reply"
-              labelPosition="left"
-              icon="edit"
-              primary
-            />
-          </Form>
+          ))}
+          
         </Comment.Group>
+        <EventDetailedChatForm eventChat={eventChat} addEventComment={addEventComment} eventId={eventId} />
+
       </Segment>
     </div>
   );
